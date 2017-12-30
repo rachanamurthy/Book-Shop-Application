@@ -105,3 +105,7 @@ You will be automatically taken to the users page where you can Create, Edit and
 
 Hit the command `$rails server` and go to [`localhost:3000`](http:\\localhost:300) on your browser to view the main page of the Application : Books
 
+#### Reference
+
+[Ruby on Rails Tutorial](https://www.railstutorial.org/book/), by Michael Hartl.
+
