@@ -109,3 +109,19 @@ Hit the command `$rails server` and go to [`localhost:3000`](http:\\localhost:30
 
 [Ruby on Rails Tutorial](https://www.railstutorial.org/book/), by Michael Hartl.
 
+------------------------------------------------
+
+### Rails Console  
+
+* Use the rails console by hitting the command `$ rails c`.
+
+* On the rails console : 
+  `> Book.all`
+  `> User.all`
+
+* To create a new Book :
+  `> Book.create(name: "Rage of Angels", author: "Sidney Sheldon")`
+
+* To view the first Book created :
+  `> Book.first`
+
