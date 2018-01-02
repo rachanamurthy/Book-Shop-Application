@@ -24,3 +24,6 @@
 
 .DS_Store
 config/secrets.yml
+config/database.yml
+**.yml
+**.yaml

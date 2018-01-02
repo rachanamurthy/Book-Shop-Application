@@ -1,0 +1,18 @@
+development:
+  adapter: postgresql
+  username: <your-username>
+  password: <password>
+  database: <database-name>
+  host: <hostname-of-the-remote-db-server>
+  port: <port>
+  pool_size: 10
+
+test:
+  adapter: postgresql
+  username: <your-username>
+  password: <password>
+  database: <database-name>
+  host: <hostname-of-the-remote-db-server>
+  port: <port>
+  pool_size: 10
+
