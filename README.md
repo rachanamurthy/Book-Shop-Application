@@ -127,5 +127,27 @@ Hit the command `$rails server` and go to [`localhost:3000`](http:\\localhost:30
 
 ------------------------------------------------
 
+### Dockerizing the Rails Application
 
+* Write a dockerfile 
+
+* Run the command : `docker build -t demo .` to build the image from the Dockerfile.
+
+* Run the command : docker run -itP demo 
+
+* On another tab of your terminal, run `docker ps` to verify that the container is up and running.
+
+The output that I got:
+```
+CONTAINER ID        IMAGE               COMMAND                  CREATED             
+b3b34d929eb5        demo                "bundle exec rails..."   42 seconds ago
+STATUS              PORTS                     NAMES
+Up 40 seconds       0.0.0.0:32768->3000/tcp   lucid_goldberg
+```
+
+* Hit `localhost:32768` on your browser.
+
+Your application is now running on the container.
+
+------------------------------------------------
 
