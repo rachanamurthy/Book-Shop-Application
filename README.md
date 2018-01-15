@@ -209,12 +209,26 @@ NOTE : You do not have to specify image name if you already have a Dockerfile in
 
 * Choose `docker` (not multi-container docker).
 
-* Run the command `eb create`. This will create the environment. Add a file in .ebextensions/
+* Add a file `.ebextensions/environment_variables.config` that has all the values for environment variables.
+
+The file would look something like this:
+```
+option_settings:
+  aws:elasticbeanstalk:application:environment:
+    DATABASE_HOSTNAME: www.example.com/api
+    DATABASE_NAME: dev
+    DATABASE_USERNAME: admin
+    DATABASE_PASSWORD: xyz
+    SECRET_KEY_BASE: jksdkjshdksh
+```
+
+
+* Commit the changes using the command `git commit -m "Add Deockerrun.aws.json and .ebextensions\environment_variables.config"`
+
+* Run the command `eb create`. This will create the environment. 
 
 You can have multiple environments - Dev, Staging, Production. You can directly deploy application code from git, by checking into the branch and then  `eb deploy`.
 
 * Further, any other changes made in the code can be deployed using the command `eb deploy` 
 
-
-
-
+------------------------------------------------
