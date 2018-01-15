@@ -1,0 +1,11 @@
+{
+  "AWSEBDockerrunVersion": "1",
+  "Logging": "/tmp/sample-app",
+  "Image": {
+    "Name" : "rachanamurthy/rubyapp",
+    "Update" : true
+  },
+  "Ports" : {
+    "ContainerPort" : "3000"
+  }
+}

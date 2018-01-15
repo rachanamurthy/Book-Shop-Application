@@ -22,6 +22,8 @@
 
 Restart the shell to make sure all the settings are properly updated.
 
+------------------------------------------------
+
 ## Setting up the Hello World Application
 
 * To get a skeleton Rails application:
@@ -103,7 +105,7 @@ You will be automatically taken to the users page where you can Create, Edit and
   end
   ```
 
-Hit the command `$rails server` and go to [`localhost:3000`](http:\\localhost:300) on your browser to view the main page of the Application : Books
+Hit the command `$rails server` and go to [`localhost:3000`](http:\\localhost:3000) on your browser to view the main page of the Application : Books
 
 #### Reference
 
@@ -133,21 +135,86 @@ Hit the command `$rails server` and go to [`localhost:3000`](http:\\localhost:30
 
 * Run the command : `docker build -t demo .` to build the image from the Dockerfile.
 
-* Run the command : docker run -itP demo 
+* Run the command: `docker run -d -p 32775:3000 demo` which would start the container in detached mode
 
-* On another tab of your terminal, run `docker ps` to verify that the container is up and running.
+* NOTE : You can use any other port number which is not allocated already on your local machine, instead of `32775`. 
 
-The output that I got:
-```
-CONTAINER ID        IMAGE               COMMAND                  CREATED             
-b3b34d929eb5        demo                "bundle exec rails..."   42 seconds ago
-STATUS              PORTS                     NAMES
-Up 40 seconds       0.0.0.0:32768->3000/tcp   lucid_goldberg
-```
+* Run `docker ps` to verify that the container is up and running.
 
-* Hit `localhost:32768` on your browser.
+* Hit [`localhost:32775`](http:\\localhost:32775) on your browser.
 
 Your application is now running on the container.
 
 ------------------------------------------------
+
+### Using Environment Variables 
+
+* Add the following in function `Rails.application.configure` in `config/development.rb` file :
+
+```
+config.secret_key_base = ENV["SECRET_KEY_BASE"]
+```
+
+* Add ENV variables in `config/database.yml` file.
+
+* Build image - `docker build -t demo .`
+
+* Create a file `env.list` This file should use the syntax `<variable>=value`:
+  ```
+  $ cat env.list
+  # This is a comment
+  VAR1=value1
+  VAR2=value2
+  ```
+
+* Start the container with the command `docker run -d -p 32775:3000 --env-file env.list demo`
+
+* Hit [`localhost:32775`](http:\\localhost:32775) to verify that the application is running as expected.
+
+
+------------------------------------------------
+
+
+### Pushing the image to Docker Hub
+
+* Create an account on [dockerhub](https://hub.docker.com/) (If you haven't already)
+
+* Run `docker login` on your terminal, to login into docker hub. 
+
+* Run `docker images` to get details about the image.
+
+* Tag the docker image that you would be pushing using the command `docker tag <image-id> <yourhubusername>/<image-name>:latest`
+
+Example : `docker tag 5d7bc07324fe rachanamurthy/rubyapp:latest`
+
+If you run  `docker images` again, you can see that a new image with name `<yourhubusername>/<image-name>` would have been created.
+
+* Run the command `docker push <yourhubusername>/<imagename>` to push the image to docker hub. 
+
+* You can log into dockerhub and check if the image has been pushed. 
+
+* Now, you can pull the docker image using the command `docker pull rachanamurthy/rubyapp` or start a container using the command `docker run -d -p 32775:3000 --env-file env.list rachanamurthy/rubyapp` 
+
+------------------------------------------------
+
+### Deploying to a Single Docker Container Platform on AWS
+
+* Install and configure EB CLI.
+
+* Create a file named `Dockerrun.aws.json` specifying the image name and the port bindings. 
+
+NOTE : You do not have to specify image name if you already have a Dockerfile in the root directory.
+
+* Run the command `eb init` 
+
+* Choose `docker` (not multi-container docker).
+
+* Run the command `eb create`. This will create the environment. Add a file in .ebextensions/
+
+You can have multiple environments - Dev, Staging, Production. You can directly deploy application code from git, by checking into the branch and then  `eb deploy`.
+
+* Further, any other changes made in the code can be deployed using the command `eb deploy` 
+
+
+
 
