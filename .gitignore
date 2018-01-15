@@ -24,8 +24,6 @@
 
 .DS_Store
 config/secrets.yml
-**.yml
-**.yaml
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
