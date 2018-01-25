@@ -29,7 +29,7 @@ Restart the shell to make sure all the settings are properly updated.
 * To get a skeleton Rails application:
   `$ rails new book_shop_app`
 
-This will automatically create a directory named hello_app with all the necessary directories and files.
+This will automatically create a directory named book_shop_app with all the necessary directories and files.
 
 * (Optional) Add any other gems required in Gemfile and run :
   `$ bundle install`
@@ -230,5 +230,31 @@ option_settings:
 You can have multiple environments - Dev, Staging, Production. You can directly deploy application code from git, by checking into the branch and then  `eb deploy`.
 
 * Further, any other changes made in the code can be deployed using the command `eb deploy` 
+
+------------------------------------------------
+
+### Deploying to a ruby platform on AWS
+
+* Remove the dockerfile and the Dockerrun.aws.json file (if you have them created)
+
+* Initialize the application with the command : `eb init`
+
+* Add a file `.ebextensions/environment_variables.config` that has all the values for environment variables.
+
+The file would look something like this:
+
+```
+option_settings:
+  aws:elasticbeanstalk:application:environment:
+    DATABASE_HOSTNAME: www.example.com/api
+    DATABASE_NAME: dev
+    DATABASE_USERNAME: admin
+    DATABASE_PASSWORD: xyz
+    SECRET_KEY_BASE: jksdkjshdksh
+```
+
+* Run the command : `eb create`
+
+Your application will be deployed on a Ruby Platform.
 
 ------------------------------------------------
